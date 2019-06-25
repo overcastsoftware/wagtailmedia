@@ -51,7 +51,7 @@ class AbstractMedia(CollectionMember, index.Indexed, models.Model):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
 
-    cf_stream_uui = models.UUIDField(default=uuid.uuid4, editable=True, unique=False)
+    cf_stream_uui = models.CharField(max_length=255, blank=True, null=True)
     cf_is_ready = models.BooleanField(default=False)
 
     objects = MediaQuerySet.as_manager()
