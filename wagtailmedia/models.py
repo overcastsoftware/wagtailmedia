@@ -122,6 +122,8 @@ class Media(AbstractMedia):
         'height',
         'thumbnail',
         'tags',
+        'cf_stream_uui',
+        'cf_is_ready',
     )
 
 
