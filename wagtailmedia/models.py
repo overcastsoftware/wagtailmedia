@@ -23,8 +23,15 @@ from wagtail.search.queryset import SearchableQuerySetMixin
 class MediaQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
 
+class CloudFlareStreamMixin(models.Model):
+    cf_stream_uui = models.CharField(max_length=255, blank=True, null=True)
+    cf_is_ready = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
+
 @python_2_unicode_compatible
-class AbstractMedia(CollectionMember, index.Indexed, models.Model):
+class AbstractMedia(CloudFlareStreamMixin, CollectionMember, index.Indexed, models.Model):
     MEDIA_TYPES = (
         ('audio', _('Audio file')),
         ('video', _('Video file')),
@@ -50,9 +57,6 @@ class AbstractMedia(CollectionMember, index.Indexed, models.Model):
     )
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
-
-    cf_stream_uui = models.CharField(max_length=255, blank=True, null=True)
-    cf_is_ready = models.BooleanField(default=False)
 
     objects = MediaQuerySet.as_manager()
 
