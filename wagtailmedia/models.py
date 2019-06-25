@@ -24,9 +24,9 @@ from wagtail.search.queryset import SearchableQuerySetMixin
 class MediaQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
 
-class CloudFlareStreamMixin(object):
+class CloudFlareStreamMixin(models.Model):
     cf_stream_uui = models.UUIDField(editable=True, unique=False)
-    cd_is_ready = models.BooleanField(default=False)
+    cf_is_ready = models.BooleanField(default=False)
 
 @python_2_unicode_compatible
 class AbstractMedia(CloudFlareStreamMixin, CollectionMember, index.Indexed, models.Model):
