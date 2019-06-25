@@ -28,6 +28,9 @@ class CloudFlareStreamMixin(models.Model):
     cf_stream_uui = models.UUIDField(default=None, editable=True, unique=False)
     cf_is_ready = models.BooleanField(default=False)
 
+    class Meta:
+        abstract = True
+
 @python_2_unicode_compatible
 class AbstractMedia(CloudFlareStreamMixin, CollectionMember, index.Indexed, models.Model):
     MEDIA_TYPES = (
