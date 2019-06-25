@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import mimetypes
 import os.path
+import uuid
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -23,9 +24,12 @@ from wagtail.search.queryset import SearchableQuerySetMixin
 class MediaQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
 
+class CloudFlareStreamMixin(object):
+    cf_stream_uui = models.UUIDField(editable=True, unique=False)
+    cd_is_ready = models.BooleanField(default=False)
 
 @python_2_unicode_compatible
-class AbstractMedia(CollectionMember, index.Indexed, models.Model):
+class AbstractMedia(CloudFlareStreamMixin, CollectionMember, index.Indexed, models.Model):
     MEDIA_TYPES = (
         ('audio', _('Audio file')),
         ('video', _('Video file')),
