@@ -24,7 +24,7 @@ class MediaQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
 
 @python_2_unicode_compatible
-class AbstractMedia(CloudFlareStreamMixin, CollectionMember, index.Indexed, models.Model):
+class AbstractMedia(CollectionMember, index.Indexed, models.Model):
     MEDIA_TYPES = (
         ('audio', _('Audio file')),
         ('video', _('Video file')),
