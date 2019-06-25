@@ -24,7 +24,7 @@ class MediaQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
 
 class CloudFlareStreamMixin(models.Model):
-    cf_stream_uui = models.UUIDField(editable=True, unique=False)
+    cf_stream_uui = models.UUIDField(default=None, editable=True, unique=False)
     cf_is_ready = models.BooleanField(default=False)
 
 @python_2_unicode_compatible
