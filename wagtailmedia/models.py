@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 
 import os.path
 import uuid
+import requests
+import json
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -117,6 +119,34 @@ class Media(AbstractMedia):
         'cf_stream_uui',
         'cf_is_ready',
     )
+
+    # def save(self, *args, **kwargs):
+    #     if self.pk is None:
+    #         # send new file to CF
+    #         ##curl -X POST -d '{"url":"<video_url>","meta":{"name":"<video_name>"}}' -H "X-Auth-Key: <api_key>" -H "X-Auth-Email: billing@guitarparty.com" https://api.cloudflare.com/client/v4/accounts/20a02375a695eda4f68301ac8115df2f/stream/copy
+
+    #         url = "https://api.cloudflare.com/client/v4/accounts/20a02375a695eda4f68301ac8115df2f/stream/copy"
+    #         api_key = os.environ["CF_API_KEY"]
+    #         email = os.environ["CF_EMAIL"]
+
+    #         data = {
+    #             "url": "https://frettabladid.overcastcdn.com" + self.file,
+    #             "meta": {
+    #                 "name": self.title,
+    #             }
+    #         }
+
+    #         headers = {
+    #             "X-Auth-Key": api_key,
+    #             "X-Auth-Email": email,
+    #         }
+
+    #         r = requests.post(url, headers=headers, json={"key": "value"})
+    #         if r.status_code == 200:
+    #             r_body = json.loads(r.json())
+    #             self.cf_stream_uui = r_body["result"]["uid"]
+
+    #     super(Media, self).save(*args, **kwargs)
 
 
 def get_media_model():
