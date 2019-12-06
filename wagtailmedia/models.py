@@ -8,6 +8,7 @@ import json
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import Signal
