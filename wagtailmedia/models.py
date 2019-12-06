@@ -34,7 +34,7 @@ def json_response_default_value():
 class CloudFlareStreamMixin(models.Model):
     cf_stream_uui = models.CharField(default='')
     cf_is_ready = models.BooleanField(default=False)
-    cf_json_response = models.JSONField(default=json_response_default_value, null=True, blank=True)
+    cf_json_response = JSONField(default=json_response_default_value, null=True, blank=True)
 
     class Meta:
         abstract = True
