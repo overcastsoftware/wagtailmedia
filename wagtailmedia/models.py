@@ -26,9 +26,15 @@ from wagtail.search.queryset import SearchableQuerySetMixin
 class MediaQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
 
+def json_response_default_value():
+    #If you give the field a default, ensure it’s a callable such as dict (for an empty default) or a callable that returns a dict (such as a function).
+    # Incorrectly using default={} creates a mutable default that is shared between all instances of JSONField.
+    return {}
+
 class CloudFlareStreamMixin(models.Model):
-    cf_stream_uui = models.UUIDField(default=uuid.uuid4, editable=True, unique=False)
+    cf_stream_uui = models.CharField(default='')
     cf_is_ready = models.BooleanField(default=False)
+    cf_json_response = models.JSONField(default=json_response_default_value, null=True, blank=True)
 
     class Meta:
         abstract = True
@@ -126,6 +132,7 @@ class Media(AbstractMedia):
         'tags',
         'cf_stream_uui',
         'cf_is_ready',
+        'cf_json_response',
     )
 
     # def save(self, *args, **kwargs):
