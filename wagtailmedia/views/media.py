@@ -162,19 +162,19 @@ def edit(request, media_id):
     filesize = None
 
     # Get file size when there is a file associated with the Media object
-    if media.file:
-        try:
-            filesize = media.file.size
-        except OSError:
-            # File doesn't exist
-            pass
+    # if media.file:
+    #     try:
+    #         filesize = media.file.size
+    #     except OSError:
+    #         # File doesn't exist
+    #         pass
 
-    if not filesize:
-        messages.error(
-            request,
-            _("The file could not be found. Please change the source or delete the media file"),
-            buttons=[messages.button(reverse('wagtailmedia:delete', args=(media.id,)), _('Delete'))]
-        )
+    # if not filesize:
+    #     messages.error(
+    #         request,
+    #         _("The file could not be found. Please change the source or delete the media file"),
+    #         buttons=[messages.button(reverse('wagtailmedia:delete', args=(media.id,)), _('Delete'))]
+    #     )
 
     return render(request, "wagtailmedia/media/edit.html", {
         'media': media,
