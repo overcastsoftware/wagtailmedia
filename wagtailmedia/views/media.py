@@ -162,12 +162,12 @@ def edit(request, media_id):
     filesize = None
 
     # Get file size when there is a file associated with the Media object
-    if media.file:
-        try:
-            filesize = media.file.size
-        except OSError:
-            # File doesn't exist
-            pass
+    # if media.file:
+    #     try:
+    #         filesize = media.file.size
+    #     except OSError:
+    #         # File doesn't exist
+    #         pass
 
     if not filesize:
         messages.error(
