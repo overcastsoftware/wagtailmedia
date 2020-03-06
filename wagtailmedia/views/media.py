@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
+from django.views.decorators.csrf import csrf_exempt
 
 from wagtail import VERSION as WAGTAIL_VERSION
 from wagtail.admin import messages
@@ -93,7 +94,7 @@ def index(request):
             'current_collection': current_collection,
         })
 
-
+@csrf_exempt 
 @permission_checker.require('add')
 def add(request, media_type):
     Media = get_media_model()
