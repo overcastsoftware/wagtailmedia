@@ -4,6 +4,10 @@ from django.urls import reverse
 from wagtail import VERSION as WAGTAIL_VERSION
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.utils import PermissionPolicyChecker
+# if WAGTAIL_VERSION < (2, 9):
+#     from wagtail.admin.utils import PermissionPolicyChecker
+# else:
+#     from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.core import hooks
 from wagtail.core.models import Collection
 
