@@ -8,7 +8,12 @@ from django.views.decorators.csrf import csrf_exempt
 
 from wagtail import VERSION as WAGTAIL_VERSION
 from wagtail.admin import messages
-from wagtail.admin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
+#from wagtail.admin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
+# if WAGTAIL_VERSION < (2, 9):
+#     from wagtail.admin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
+# else:
+from wagtail.admin.auth import PermissionPolicyChecker, permission_denied
+from wagtail.admin.models import popular_tags_for_model
 from wagtail.core.models import Collection
 from wagtail.search.backends import get_search_backends
 
