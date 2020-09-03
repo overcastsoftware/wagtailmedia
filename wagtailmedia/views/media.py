@@ -4,17 +4,18 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
+from django.views.decorators.csrf import csrf_exempt
 
 from wagtail import VERSION as WAGTAIL_VERSION
 from wagtail.admin import messages
 from wagtail.admin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
 from wagtail.core.models import Collection
 from wagtail.search.backends import get_search_backends
-from wagtail.utils.pagination import paginate
 
 from wagtailmedia.forms import get_media_form
 from wagtailmedia.models import get_media_model
 from wagtailmedia.permissions import permission_policy
+from wagtailmedia.utils import paginate
 
 if WAGTAIL_VERSION < (2, 5):
     from wagtail.admin.forms import SearchForm
@@ -93,7 +94,7 @@ def index(request):
             'current_collection': current_collection,
         })
 
-
+@csrf_exempt 
 @permission_checker.require('add')
 def add(request, media_type):
     Media = get_media_model()
@@ -169,12 +170,12 @@ def edit(request, media_id):
     #         # File doesn't exist
     #         pass
 
-    # if not filesize:
-    #     messages.error(
-    #         request,
-    #         _("The file could not be found. Please change the source or delete the media file"),
-    #         buttons=[messages.button(reverse('wagtailmedia:delete', args=(media.id,)), _('Delete'))]
-    #     )
+    if not filesize:
+        messages.error(
+            request,
+            _("The file could not be found. Please change the source or delete the media file"),
+            buttons=[messages.button(reverse('wagtailmedia:delete', args=(media.id,)), _('Delete'))]
+        )
 
     return render(request, "wagtailmedia/media/edit.html", {
         'media': media,

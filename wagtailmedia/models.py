@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import mimetypes
 import os.path
 import uuid
 import requests
@@ -95,6 +96,13 @@ class AbstractMedia(CloudFlareStreamMixin, CollectionMember, index.Indexed, mode
     @property
     def url(self):
         return self.file.url
+
+    @property
+    def sources(self):
+        return [{
+            'src': self.url,
+            'type': mimetypes.guess_type(self.filename)[0] or 'application/octet-stream',
+        }]
 
     def get_usage(self):
         return get_object_usage(self)
