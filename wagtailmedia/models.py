@@ -14,7 +14,6 @@ from django.db.models.signals import pre_delete
 from django.dispatch import Signal
 from django.dispatch.dispatcher import receiver
 from django.urls import reverse
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from taggit.managers import TaggableManager
@@ -44,7 +43,6 @@ class CloudFlareStreamMixin(models.Model):
     class Meta:
         abstract = True
 
-@python_2_unicode_compatible
 class AbstractMedia(CloudFlareStreamMixin, CollectionMember, index.Indexed, models.Model):
     MEDIA_TYPES = (
         ('audio', _('Audio file')),
